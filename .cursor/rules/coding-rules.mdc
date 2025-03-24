@@ -1,9 +1,8 @@
 ---
-description: Isshindo アプリ コーディングルール
-globs: *.dart
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
-
 ## 1. プロジェクト構造
 
 ### 1.1 ディレクトリ構造

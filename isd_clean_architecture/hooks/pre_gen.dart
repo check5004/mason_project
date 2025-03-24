@@ -1,6 +1,11 @@
 import 'dart:io';
 import 'package:mason/mason.dart';
 
+/// -----------------------------------------------
+/// [概要]   : プロジェクト名を設定するためのフック関数
+/// [作成者] : TCC S.Tate
+/// [作成日] : 2025/03/24
+/// -----------------------------------------------
 void run(HookContext context) {
   // 現在のディレクトリパスを取得
   final currentDir = Directory.current;
