@@ -25,18 +25,108 @@ _生成元: [mason][1] 🧱_
 [6]: https://youtu.be/o8B1EfcUisw
 [7]: https://youtu.be/LXhgiF5HiQg
 
-## 使い方
+## インストール方法 📥
+
+### 方法1: GitHubリポジトリから直接インストール（グローバル）
 
 ```bash
-# グローバルに追加
-mason add -g isd_clean_architecture --path .
+# Masonがインストールされていない場合は先にインストール
+dart pub global activate mason_cli
 
-# Flutterプロジェクトを作成（出力先ディレクトリは自動的に作成されます）
-mason make isd_clean_architecture -o ~/path/to/your_project_directory
+# グローバルにブリックを追加（-gオプションを必ず追加）
+mason add -g isd_clean_architecture --git-url https://github.com/check5004/mason_project --git-path isd_clean_architecture
 ```
+
+> **注意**: 同名のブリックが既にインストールされている場合、以下のように上書き確認が表示されます:
+> ```
+> conflict: /Users/.../isd_clean_architecture
+> Overwrite isd_clean_architecture? (y/N) y
+> ```
+> この場合、最新バージョンをインストールするために `y` を入力してEnterキーを押してください。キャンセルする場合は `N` を入力するか、Enterキーを押してください。
+
+### 方法2: プロジェクト内でローカルにインストール
+
+```bash
+# Masonがインストールされていない場合は先にインストール
+dart pub global activate mason_cli
+
+# プロジェクトディレクトリを作成して移動
+mkdir my_flutter_project
+cd my_flutter_project
+
+# Masonの初期化（これによりmason.yamlが作成されます）
+mason init
+
+# ローカルにブリックを追加
+mason add isd_clean_architecture --git-url https://github.com/check5004/mason_project --git-path isd_clean_architecture
+
+# ブリックをインストール
+mason get
+```
+
+### 方法3: ローカル開発用（開発者向け）
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/check5004/mason_project
+cd mason_project
+
+# グローバルに追加
+mason add -g isd_clean_architecture --path ./isd_clean_architecture
+```
+
+## 使い方 🚀
+
+```bash
+# グローバルインストールした場合は任意のディレクトリで実行可能
+mason make isd_clean_architecture -o ~/path/to/your_project_directory
+
+# ローカルインストールした場合は、mason.yamlのあるディレクトリで実行
+cd my_flutter_project  # mason.yamlがあるディレクトリ
+mason make isd_clean_architecture -o ./my_app
+```
+
+> **注意**: 出力先ディレクトリが既に存在する場合、ファイルの上書き確認のプロンプトが表示されることがあります。新規プロジェクトの場合は新しい空のディレクトリを指定することをお勧めします。
 
 プロンプトに従って情報を入力すると、指定したディレクトリにクリーンアーキテクチャ構成のFlutterプロジェクトが作成されます。
 
 ### 便利な機能
 
 - **出力先ディレクトリ名をプロジェクト名として使用**: `-o`オプションで指定したディレクトリ名が、デフォルトのプロジェクト名として使用されます。例えば、`mason make isd_clean_architecture -o ~/Downloads/my_awesome_app`を実行すると、プロジェクト名のデフォルト値として「my_awesome_app」が提案されます。
+
+## トラブルシューティング 🔧
+
+### 上書き確認について
+
+- **ブリックのインストール時**: `mason add` コマンド実行時に、すでに同名のブリックがインストールされていると以下のメッセージが表示されます：
+  ```
+  conflict: /Users/.../isd_clean_architecture
+  Overwrite isd_clean_architecture? (y/N)
+  ```
+  - `y` を入力: 既存のブリックを最新バージョンで上書きします（推奨）
+  - `N` を入力またはEnterを押す: 既存のブリックをそのまま使用します
+
+- **プロジェクト生成時**: `mason make` コマンド実行時に、出力先に既存のファイルがある場合、それらのファイルを上書きするかどうかの確認が表示されることがあります。新しいプロジェクトを作成する場合は、空のディレクトリを指定することをお勧めします。
+
+## セットアップ手順の概要 🔍
+
+### グローバルインストールを使用する場合（推奨）
+
+1. Mason CLIをインストール: `dart pub global activate mason_cli`
+2. ブリックをグローバルにインストール: `mason add -g isd_clean_architecture --git-url https://github.com/check5004/mason_project --git-path isd_clean_architecture`
+3. プロジェクトを作成: `mason make isd_clean_architecture -o プロジェクト作成先パス`
+4. プロンプトに従って必要な情報を入力
+5. 作成されたプロジェクトディレクトリに移動: `cd プロジェクト作成先パス`
+6. Flutterパッケージを取得: `flutter pub get`
+7. コード生成を実行: `flutter pub run build_runner build --delete-conflicting-outputs`
+8. アプリを実行: `flutter run`
+
+### ローカルインストールを使用する場合
+
+1. Mason CLIをインストール: `dart pub global activate mason_cli`
+2. プロジェクトディレクトリを作成: `mkdir my_flutter_project && cd my_flutter_project`
+3. Masonを初期化: `mason init`
+4. ブリックをローカルに追加: `mason add isd_clean_architecture --git-url https://github.com/check5004/mason_project --git-path isd_clean_architecture`
+5. ブリックをインストール: `mason get`
+6. ブリックを使用してアプリを生成: `mason make isd_clean_architecture -o ./my_app`
+7. 以降、上記の手順5〜8と同様
