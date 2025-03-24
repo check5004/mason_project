@@ -16,11 +16,11 @@ lib/
   │   ├── network/      # ネットワーク関連（インターセプターなど）
   │   └── utils/        # ユーティリティ関数とエクステンション
   ├── data/             # データレイヤー
-  │   ├── datasources/  # データソース（APIクライアントなど）
+  │   ├── datasources   # データソース（APIクライアントなど）
   │   ├── models/       # データモデル（Freezedモデルなど）
   │   ├── repositories/ # リポジトリの実装
   │   ├── local/        # ローカルデータ関連
-  │   └── services/     # 外部サービス連携
+  │   └── service/      # 外部サービス連携
   ├── domain/           # ドメインレイヤー
   │   ├── entities/     # ドメインエンティティ
   │   ├── repositories/ # リポジトリのインターフェース
@@ -28,7 +28,11 @@ lib/
   ├── presentation/     # プレゼンテーションレイヤー
   │   ├── view_models/  # ViewModel（Riverpodによる状態管理）
   │   ├── views/        # 画面単位のView
+  │   │   ├── common/   # 共通の画面コンポーネント
+  │   │   └── feature/  # 機能ごとの画面
   │   ├── widgets/      # 再利用可能なカスタムWidget
+  │   │   ├── common/   # 共通のウィジェット
+  │   │   └── feature/  # 機能固有のウィジェット
   │   └── extensions/   # widgetの拡張機能
   ├── di/               # 依存性注入
   └── routes/           # ルーティング(go_router)
