@@ -1,0 +1,45 @@
+name: isd_clean_architecture  # brick名
+description: Mason CLI を使用して作成された新しい brick。
+
+# 以下は brick リポジトリの URL を定義しています。
+# brick を公開する前に、下記行のコメントアウトを解除して URL を更新してください。
+# repository: https://github.com/my_org/my_repo
+
+# 以下は brick のバージョンとビルド番号を定義しています。
+# バージョン番号は、1.2.34 のようにドットで区切られた 3 つの数字に、
+# オプションで + で区切られたビルド番号を追加する形式です。
+version: 0.1.0+1
+
+# 以下は現在の brick の動作環境を定義しています。
+# ここには、brick が必要とする Mason のバージョンが含まれています。
+environment:
+  mason: ">=0.1.0 <0.2.0"
+
+# 以下は brick が依存する動的な値、すなわち変数 (Variables) を指定します。
+# brick ごとに 0 個以上の変数を指定することが可能です。
+# ※このセクションは各オプション名の定義となります。
+# 各変数は以下の情報を持ちます:
+#  ・タイプ (Type): (string, number, boolean, enum, array, または list)
+#  ・オプションの短い説明 (description)
+#  ・オプションのデフォルト値 (default)
+#  ・オプションのデフォルト値リスト (list of default values) (array のみ)
+#  ・変数入力時に使用されるプロンプト文 (prompt)
+#  ・値のリスト (list of values, for enums only)
+#  ・オプションの区切り文字 (separator, for lists only)
+vars:
+  project_name:  # プロジェクト名
+    type: string
+    description: プロジェクト名 (アプリID)
+    prompt: プロジェクト名を入力してください（出力先ディレクトリ名がデフォルトで使用されます）
+
+  flutter_version:  # FVMで使用するFlutterのバージョン
+    type: string
+    description: FVMで使用するFlutterのバージョン。このテンプレートはFlutter 3.24.3 で作成されています。
+    default: 3.24.3
+    prompt: 使用するFlutterのバージョンを入力してください（例： 3.24.3）
+
+  platforms:  # 対応するプラットフォーム
+    type: string
+    description: 対応するプラットフォーム。flutter createの --platforms オプションで指定します。カンマ区切りで複数指定できます。
+    default: ios,android
+    prompt: 対応するプラットフォームを入力してください（例： ios,android）

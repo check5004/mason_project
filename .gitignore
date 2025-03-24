@@ -1,0 +1,7 @@
+.specstory
+*.code-workspace
+
+# Mason
+*/.mason/
+*/hooks/.dart_tool/
+*/hooks/build/

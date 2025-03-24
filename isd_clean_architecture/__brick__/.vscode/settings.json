@@ -1,0 +1,16 @@
+{
+  "dart.lineLength": 120,
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "dart.previewFlutterUiGuides": true,
+  "dart.previewFlutterUiGuidesCustomTracking": true,
+  "dart.flutterSdkPath": ".fvm/versions/{{flutter_version}}",
+  "dart.sdkPaths": [
+    ".fvm/flutter_sdk/bin/cache/dart-sdk"
+  ]
+}
