@@ -34,9 +34,9 @@ vars:
 
   flutter_version:  # FVMで使用するFlutterのバージョン
     type: string
-    description: FVMで使用するFlutterのバージョン。このテンプレートはFlutter 3.24.3 で作成されています。
-    default: 3.24.3
-    prompt: 使用するFlutterのバージョンを入力してください（例： 3.24.3）
+    description: FVMで使用するFlutterのバージョン。このテンプレートはFlutter 3.29.2 で作成されています。
+    default: 3.29.2
+    prompt: 使用するFlutterのバージョンを入力してください（例： 3.29.2）
 
   platforms:  # 対応するプラットフォーム
     type: string
