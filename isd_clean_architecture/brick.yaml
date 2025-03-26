@@ -1,5 +1,5 @@
 name: isd_clean_architecture  # brick名
-description: Mason CLI を使用して作成された新しい brick。
+description: Mason CLI を使用して作成された新しい brick。ISDアプリの基本アーキテクチャを設定し、必要なプラグインを自動インストールします。
 
 # 以下は brick リポジトリの URL を定義しています。
 # brick を公開する前に、下記行のコメントアウトを解除して URL を更新してください。

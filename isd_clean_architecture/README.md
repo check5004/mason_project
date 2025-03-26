@@ -130,3 +130,64 @@ mason make isd_clean_architecture -o ./my_app
 5. ブリックをインストール: `mason get`
 6. ブリックを使用してアプリを生成: `mason make isd_clean_architecture -o ./my_app`
 7. 以降、上記の手順5〜8と同様
+
+## 自動インストールされるプラグイン 📦
+
+このブリックではプロジェクト作成時に以下のプラグインが自動的にインストールされます。すべてのプラグインは最新バージョンでインストールされます。
+
+### UI/UXコンポーネント
+- material_symbols_icons
+- awesome_dialog
+- google_fonts
+- responsive_grid
+- shimmer
+
+### 状態管理とアーキテクチャ
+- hooks_riverpod
+- riverpod_annotation
+- go_router
+- freezed_annotation
+- json_annotation
+
+### ネットワーク通信
+- dio
+- retrofit
+- connectivity_plus
+
+### データ操作・保存
+- collection
+- decimal
+- shared_preferences
+- sqflite
+- path_provider
+- kana_kit
+
+### デバイス機能アクセス
+- image_picker
+- pro_image_editor
+- permission_handler
+- package_info_plus
+- barcode_scan2
+- share_plus
+- native_device_orientation
+
+### 開発・デバッグ支援
+- talker_dio_logger
+- talker_flutter
+- flutter_launcher_icons
+- flutter_native_splash
+- upgrader
+
+### 国際化・ローカライゼーション
+- intl
+- flutter_localization
+
+### 開発依存パッケージ
+- build_runner
+- freezed
+- json_serializable
+- riverpod_generator
+- retrofit_generator
+- flutter_gen_runner
+
+> **注意**: `responsive_framework`, `webview_flutter`, `talker_riverpod_logger`, `widgetbook`, `flutter_staggered_animations`, `local_hero` などのプラグインは「おすすめプラグイン」として位置づけられているため、自動インストールの対象から意図的に除外しています。これらのプラグインはプロジェクトの要件に応じて手動でインストールしてください。追加方法： `flutter pub add プラグイン名`
