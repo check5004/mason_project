@@ -40,6 +40,7 @@ void run(HookContext context) {
   // 自動インストールするプラグインのリスト（最新バージョンを使用）
   final pluginsToInstall = [
     // UI/UXコンポーネント
+    'flex_color_scheme',
     'material_symbols_icons',
     'awesome_dialog',
     'google_fonts',

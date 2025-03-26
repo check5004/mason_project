@@ -136,6 +136,7 @@ mason make isd_clean_architecture -o ./my_app
 このブリックではプロジェクト作成時に以下のプラグインが自動的にインストールされます。すべてのプラグインは最新バージョンでインストールされます。
 
 ### UI/UXコンポーネント
+- flex_color_scheme
 - material_symbols_icons
 - awesome_dialog
 - google_fonts
