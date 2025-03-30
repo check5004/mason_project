@@ -173,13 +173,26 @@ void run(HookContext context) {
 
   if (buildRunner.stderr.toString().isNotEmpty) {
     final stderrOutput = buildRunner.stderr.toString();
-    if (stderrOutput.contains('Warning')) {
-      context.logger.warn("⚠️ build_runner 実行中に警告が発生: ${stderrOutput}");
-      buildRunnerMessage = "⚠️ build_runner 実行中に警告が発生しました";
-    } else {
+    // 無視する警告のリスト
+    final ignoredWarnings = [
+      'Specified build.yaml as input but the file does not exists',
+      'FlutterGen'
+    ];
+
+    // 無視する警告が含まれているかチェック
+    bool containsIgnoredWarning = ignoredWarnings.any((warning) =>
+      stderrOutput.contains(warning));
+
+    if (stderrOutput.contains('Warning') || containsIgnoredWarning) {
+      context.logger.info("ℹ️ build_runner からの情報: ${stderrOutput}");
+      buildRunnerMessage = "ℹ️ build_runner の出力を確認してください";
+    } else if (stderrOutput.contains('Error') || stderrOutput.contains('Exception')) {
       context.logger.err("❌ build_runner 実行中にエラーが発生: ${stderrOutput}");
       buildRunnerSuccess = false;
       buildRunnerMessage = "❌ build_runner 実行中にエラーが発生しました";
+    } else {
+      // その他のエラー出力は情報として扱う
+      context.logger.info("ℹ️ build_runner からの出力: ${stderrOutput}");
     }
   }
 
@@ -214,7 +227,7 @@ void run(HookContext context) {
   } else {
     context.logger.err(buildRunnerMessage);
   }
-  context.logger.info("----------------------------");
+  context.logger.info("----------------------------\n\n");
 
   // 最終的な成功メッセージ
   if (failureCount > 0 || !buildRunnerSuccess) {
@@ -224,4 +237,5 @@ void run(HookContext context) {
   } else {
     context.logger.success("✅ すべてのセットアップが正常に完了しました！");
   }
+  context.logger.info("");
 }
