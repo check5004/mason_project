@@ -103,7 +103,8 @@ void run(HookContext context) {
 
   // 通常の依存パッケージをインストール（最新バージョン）
   for (final packageName in pluginsToInstall) {
-    context.logger.info("📦 インストール中: $packageName");
+    final currentIndex = pluginsToInstall.indexOf(packageName) + 1;
+    context.logger.info("📦 インストール中($currentIndex/${pluginsToInstall.length}): $packageName");
     final result = Process.runSync('fvm', ['flutter', 'pub', 'add', packageName]);
 
     if (result.stdout.toString().isNotEmpty) {
@@ -128,7 +129,8 @@ void run(HookContext context) {
 
   // 開発依存パッケージをインストール
   for (final devPackage in devDependencies) {
-    context.logger.info("📦 開発依存パッケージをインストール中: $devPackage");
+    final currentIndex = devDependencies.indexOf(devPackage) + 1;
+    context.logger.info("📦 開発依存パッケージをインストール中($currentIndex/${devDependencies.length}): $devPackage");
     final result = Process.runSync('fvm', ['flutter', 'pub', 'add', '--dev', devPackage]);
 
     if (result.stdout.toString().isNotEmpty) {
@@ -158,9 +160,32 @@ void run(HookContext context) {
     context.logger.err(pubGet.stderr.toString());
   }
 
+  // ビルドランナーを実行してコード生成を行います
+  context.logger.info("🔄 build_runner を実行中...");
+  final buildRunner = Process.runSync(
+    'fvm',
+    ['flutter', 'pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs']
+  );
+  context.logger.info(buildRunner.stdout.toString());
+
+  bool buildRunnerSuccess = true;
+  String buildRunnerMessage = "";
+
+  if (buildRunner.stderr.toString().isNotEmpty) {
+    final stderrOutput = buildRunner.stderr.toString();
+    if (stderrOutput.contains('Warning')) {
+      context.logger.warn("⚠️ build_runner 実行中に警告が発生: ${stderrOutput}");
+      buildRunnerMessage = "⚠️ build_runner 実行中に警告が発生しました";
+    } else {
+      context.logger.err("❌ build_runner 実行中にエラーが発生: ${stderrOutput}");
+      buildRunnerSuccess = false;
+      buildRunnerMessage = "❌ build_runner 実行中にエラーが発生しました";
+    }
+  }
+
   // インストール結果の総括
   final totalPackages = pluginsToInstall.length + devDependencies.length;
-  context.logger.info("📊 プラグインインストール結果");
+  context.logger.info("\n📊 プラグインインストール結果");
   context.logger.info("----------------------------");
   context.logger.info("✅ 成功: $successCount / $totalPackages");
 
@@ -175,13 +200,28 @@ void run(HookContext context) {
     context.logger.info("----------------------------");
     context.logger.warn("⚠️ 注意: いくつかのパッケージのインストールに問題が発生しました。");
     context.logger.warn("  手動でインストールするか、依存関係の競合を解決してください。");
-    context.logger.success("✅ セットアッププロセスは完了しましたが、一部のパッケージに問題があります。");
   } else if (warningCount > 0) {
     context.logger.info("----------------------------");
     context.logger.warn("⚠️ 注意: いくつかのパッケージにバージョン競合の警告が発生しました。");
-    context.logger.success("✅ セットアッププロセスは完了しましたが、一部のパッケージに警告があります。");
+  }
+  context.logger.info("----------------------------");
+
+  // build_runnerの結果をレポート
+  context.logger.info("\n📊 build_runner 実行結果");
+  context.logger.info("----------------------------");
+  if (buildRunnerSuccess) {
+    context.logger.info("✅ build_runner によるコード生成が完了しました");
   } else {
-    context.logger.info("----------------------------");
-    context.logger.success("✅ すべてのパッケージのインストールに成功しました！");
+    context.logger.err(buildRunnerMessage);
+  }
+  context.logger.info("----------------------------");
+
+  // 最終的な成功メッセージ
+  if (failureCount > 0 || !buildRunnerSuccess) {
+    context.logger.success("✅ セットアッププロセスは完了しましたが、一部問題が発生しています。");
+  } else if (warningCount > 0 || buildRunnerMessage.contains("警告")) {
+    context.logger.success("✅ セットアッププロセスは完了しましたが、一部警告があります。");
+  } else {
+    context.logger.success("✅ すべてのセットアップが正常に完了しました！");
   }
 }
