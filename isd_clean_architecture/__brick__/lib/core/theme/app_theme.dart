@@ -2,20 +2,20 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// The [AppTheme] defines light and dark themes for the app.
+/// [AppTheme] は、アプリのライトテーマとダークテーマを定義します。
 ///
-/// Theme setup for FlexColorScheme package v8.
-/// Use same major flex_color_scheme package version. If you use a
-/// lower minor version, some properties may not be supported.
-/// In that case, remove them after copying this theme to your
-/// app or upgrade the package to version 8.2.0.
+/// FlexColorScheme パッケージ v8 用のテーマ設定です。
+/// flex_color_scheme パッケージのメジャーバージョンを同じものを使用してください。マイナーバージョンが低い場合、一部のプロパティがサポートされない可能性があります。
+/// その場合は、このテーマをアプリにコピーした後、それらを削除するか、パッケージをバージョン 8.2.0 にアップグレードしてください。
 ///
-/// Use it in a [MaterialApp] like this:
+/// [MaterialApp] で次のように使用します。
 ///
+/// ```dart
 /// MaterialApp(
 ///   theme: AppTheme.light,
 ///   darkTheme: AppTheme.dark,
 /// );
+/// ```
 ///
 /// playground:
 ///   [LINK](https://rydmike.com/flexcolorscheme/themesplayground-latest/?config=H4sIABgU4mcA_8VYW0_jOBR-n19R8bxCJQWW5a2lsFstXdC07DxWbnLSWDh2ZDu97Gj--xw7cYjTpHSkwvKE8n32uV_c7196-HeWMbJbSZHzaBERTc5ue2fzBFJQvecK6RmkB9tMSA1RL7g67w_Og35w1bu4uA2uboObs9_2bluDVFRwc-HNeXDedxTC6IpDNJYii8TG4Frm4MAsGxE50zsGYyJfEfxuAQtGROqF3mVg7gSep4uYwXaBZ5ZELpQ5VAqx9DVhuaUuSfhaKHVm0R_7wh7pKtEfK23JgEfGqCd-J5iQyrfcwo-wBlYafrkHOCUvPMR8rF0ZE6a8O594_daLfgtWXVyBQmuR_kPWdEU0BhHdNM01vHAFDELMgYmGtCEsFGlGQj0VEfiWhYLHVKbPElJiMe9UrlDSHKSmRO7eiXlojGx1-sPD71fjy_tr3-URJUysRkJGIL-SiObGQUHfQ-8ZrK2NCA0cIskG5IRHNCRayFloCsJ6-L0UUZa66FY0kzRFQ309weoA0ShHt_NTihP8uRB4J7gmlIM8KBkwVihl9wEWdymwzSQoRddgcthR_ByJmcAI8dUwtLloVR2yDdmpOyrDnJFjDrwomCUka-ZfgqkP0kiWROkHuoWowaA8y_UYPSNNLoyq6h6yLCGuVgfHkF2Z_dFO9tP05gBpXgTg_WZlDy-W9lABtyZJrhm63Q-ML3eixoDF7xd2k_JAGXvHfdgEYrqdYJoZz314YXUJ_2TBNXHHTLUTizxqtp1C5guPBfZziP4iqkjUZr5okMTW5H0c4xxpjMBXgMz4515K0Sxph5XtrAOtGlgH7uZMV6cxvC7pb5IbKu912D3GIbWcSgegLm1TjBxO5voEu_Chqpv0a9_r_Mva94p8XX7k9fn_1stOWTwqlzEJoWM4eArU1e63Eap5_YR7CNW7mjvaeR_eBfgvLVAee-Z4J-5W1UJwQFMn-5EsgX2ik74Syo4Kokf8ZAV_IYyG_r_FsS78cwIp-BRrWOGiNfrmZk7dMeiAotq7KZnI8mxqepe_DF038bYepkISx4LZN9ZEzbEFjxg2rYYIx7LiJ-pbQnVzJyzMxwSDLSJX7isQGSZ1wYGHoFF_MrEkzK2ZtSGgYIUd9kM2_NZQqERsZqUVOKHb3puKprg5Y_0Ms8yZ2m9id_imExw1V47iilExigH612gxN3O9ufaVjd28Bo9-yJdnFql5QrbZapb1tzn0aGwsgtmw_k328e_6Ewv3c7zu9w3JHmFFwl0RlQmfDpq-Q0pZ3UMct255sJe1hnJDdZjMkzxd2gfMjP7XTGltcqF8mh_0hSV2O4FZgzyDtQ3_mCqyxO3fvqQEa2iohUmCKehEFD9l1H9sKMCZZ3THMqVFRkObivfoGGrNGexhM41mlWjgukNe9ey5WK0YTJR15V7i4v7atgHi5wdME3umqCxfM8T_hl3rrzAITYPiJy26NlVThtw_PR1YsZ034CtdUsJaDgouXGMtS615tsZo67pIqW-o_vWzfFn8HriH1DbXBlCL9r6oqDIxqH00zp1jq5mBzjOTHe79u6YqJ8y8Pott4GD2FuRFVLLbMjgUaSykNsn6jD0O_0_LfP7y4yfMU7sqExUAAA==)
