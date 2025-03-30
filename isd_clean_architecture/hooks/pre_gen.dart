@@ -20,4 +20,9 @@ void run(HookContext context) {
     context.vars['project_name'] = dirName;
     context.logger.info('🔄 出力先ディレクトリ名をプロジェクト名として使用します: $dirName');
   }
+
+  // platformsのカンマを %20|%20 に置換してplatforms_badge変数を作成
+  final platforms = context.vars['platforms'] as String;
+  final platformsBadge = platforms.replaceAll(',', '%20%7C%20');
+  context.vars['platforms_badge'] = platformsBadge;
 }
