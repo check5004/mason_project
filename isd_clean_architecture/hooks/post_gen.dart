@@ -20,6 +20,13 @@ void run(HookContext context) {
   context.logger.info("🔄 サポートするプラットフォーム: $platforms");
   context.logger.info("🔄 プロジェクト名: $projectName");
 
+  // インストール結果の追跡用変数
+  int successCount = 0;
+  int failureCount = 0;
+  int warningCount = 0;
+  final List<String> failedPackages = [];
+  final List<String> warningPackages = [];
+
   // FVMを使用してFlutterバージョンを設定します。
   final fvmSetup = Process.runSync('fvm', ['use', flutterVersion]);
   context.logger.info(fvmSetup.stdout.toString());
@@ -103,8 +110,19 @@ void run(HookContext context) {
       context.logger.info(result.stdout.toString());
     }
 
-    if (result.stderr.toString().isNotEmpty && !result.stderr.toString().contains('Warning')) {
-      context.logger.err("⚠️ $packageName のインストール中にエラーが発生: ${result.stderr}");
+    final stderrOutput = result.stderr.toString();
+    if (stderrOutput.isNotEmpty) {
+      if (stderrOutput.contains('Warning')) {
+        context.logger.warn("⚠️ $packageName のインストール中に警告が発生: ${stderrOutput}");
+        warningCount++;
+        warningPackages.add(packageName);
+      } else {
+        context.logger.err("❌ $packageName のインストール中にエラーが発生: ${stderrOutput}");
+        failureCount++;
+        failedPackages.add(packageName);
+      }
+    } else {
+      successCount++;
     }
   }
 
@@ -117,8 +135,19 @@ void run(HookContext context) {
       context.logger.info(result.stdout.toString());
     }
 
-    if (result.stderr.toString().isNotEmpty && !result.stderr.toString().contains('Warning')) {
-      context.logger.err("⚠️ $devPackage のインストール中にエラーが発生: ${result.stderr}");
+    final stderrOutput = result.stderr.toString();
+    if (stderrOutput.isNotEmpty) {
+      if (stderrOutput.contains('Warning')) {
+        context.logger.warn("⚠️ $devPackage のインストール中に警告が発生: ${stderrOutput}");
+        warningCount++;
+        warningPackages.add(devPackage);
+      } else {
+        context.logger.err("❌ $devPackage のインストール中にエラーが発生: ${stderrOutput}");
+        failureCount++;
+        failedPackages.add(devPackage);
+      }
+    } else {
+      successCount++;
     }
   }
 
@@ -129,5 +158,30 @@ void run(HookContext context) {
     context.logger.err(pubGet.stderr.toString());
   }
 
-  context.logger.success("✅ Flutterプロジェクトとプラグインのセットアップ完了！");
+  // インストール結果の総括
+  final totalPackages = pluginsToInstall.length + devDependencies.length;
+  context.logger.info("📊 プラグインインストール結果");
+  context.logger.info("----------------------------");
+  context.logger.info("✅ 成功: $successCount / $totalPackages");
+
+  if (warningCount > 0) {
+    context.logger.warn("⚠️ 警告: $warningCount パッケージ");
+    context.logger.warn("   警告が発生したパッケージ: ${warningPackages.join(', ')}");
+  }
+
+  if (failureCount > 0) {
+    context.logger.err("❌ 失敗: $failureCount パッケージ");
+    context.logger.err("   インストールに失敗したパッケージ: ${failedPackages.join(', ')}");
+    context.logger.info("----------------------------");
+    context.logger.warn("⚠️ 注意: いくつかのパッケージのインストールに問題が発生しました。");
+    context.logger.warn("  手動でインストールするか、依存関係の競合を解決してください。");
+    context.logger.success("✅ セットアッププロセスは完了しましたが、一部のパッケージに問題があります。");
+  } else if (warningCount > 0) {
+    context.logger.info("----------------------------");
+    context.logger.warn("⚠️ 注意: いくつかのパッケージにバージョン競合の警告が発生しました。");
+    context.logger.success("✅ セットアッププロセスは完了しましたが、一部のパッケージに警告があります。");
+  } else {
+    context.logger.info("----------------------------");
+    context.logger.success("✅ すべてのパッケージのインストールに成功しました！");
+  }
 }
