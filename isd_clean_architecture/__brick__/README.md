@@ -3,6 +3,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-{{flutter_version}}-blue.svg?logo=flutter)](https://flutter.dev)
 [![Platform](https://img.shields.io/badge/platform-{{platforms_badge}}-blue)](https://docs.flutter.dev/reference/create-new-app)
 [![Style: Lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
+[![Mason Generated](https://img.shields.io/badge/Mason-Generated-darkred.svg?logo=mason)](https://github.com/check5004/mason_project)
 
 ## 概要 📋
 
@@ -106,3 +107,8 @@ lib/
 - **ファイル名**: スネークケース
 - **状態管理**: Riverpodのみを使用し、setState使用は避ける
 - **テスト**: ビジネスロジックには単体テストを作成
+
+
+## Masonについて 🧱
+
+このプロジェクトは[check5004/mason_project](https://github.com/check5004/mason_project)で公開されているMasonブリックを使用して生成されています。Masonを使用することで、一貫性のあるプロジェクト構造と最新のFlutterベストプラクティスを簡単に導入できます。
