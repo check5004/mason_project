@@ -46,6 +46,9 @@ void run(HookContext context) {
 
   // 自動インストールするプラグインのリスト（最新バージョンを使用）
   final pluginsToInstall = [
+    // 国際化・ローカライゼーション
+    'flutter_localization',
+    'intl',
     // UI/UXコンポーネント
     'flex_color_scheme',
     'material_symbols_icons',
@@ -84,9 +87,6 @@ void run(HookContext context) {
     'flutter_launcher_icons',
     'flutter_native_splash',
     'upgrader',
-    // 国際化・ローカライゼーション
-    'intl',
-    'flutter_localization',
   ];
 
   // 開発依存パッケージ
