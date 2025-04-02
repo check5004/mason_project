@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 
 /// -----
 /// [概要]   :設定画面の画面遷移を定義するルーティング設定
-/// [作成者] :AI Assistant
-/// [作成日] :2024/06/29
+/// [作成者] :TCC S.Tate
+/// [作成日] :2025/03/25
 /// -----
 ///
 /// 設定機能の画面遷移を定義します。
@@ -50,6 +50,14 @@ class SettingsScreen extends StatelessWidget {
             leading: const Icon(Icons.info),
             title: const Text('このアプリについて'),
             onTap: () => context.push('/settings/about'),
+          ),
+          const Divider(),
+          // 開発向け機能
+          ListTile(
+            leading: const Icon(Icons.bug_report),
+            title: const Text('ログ表示'),
+            subtitle: const Text('アプリのエラーログを確認'),
+            onTap: () => context.pushNamed('logs'),
           ),
         ],
       ),
@@ -110,11 +118,11 @@ class AboutScreen extends StatelessWidget {
 ///   name: 'notificationSettings',
 ///   builder: (context, state) => const NotificationSettingsScreen(),
 /// ),
-/// 
+///
 /// // SettingsScreenのListViewに項目を追加
 /// ListTile(
 ///   leading: const Icon(Icons.notifications),
 ///   title: const Text('通知設定'),
 ///   onTap: () => context.push('/settings/notifications'),
 /// ),
-/// ``` 
+/// ```

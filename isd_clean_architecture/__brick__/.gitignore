@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -48,3 +50,6 @@ app.*.map.json
 
 # Cursor Editor
 .specstory/
+
+# API Configuration (Contains sensitive information)
+lib/core/constants/api_config.dart

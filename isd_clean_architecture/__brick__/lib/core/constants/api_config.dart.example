@@ -1,0 +1,14 @@
+/// -----
+/// [概要]   :API接続設定のサンプルファイル
+/// [作成者] :{あなたの会社名} {あなたの名前}
+/// [作成日] :{今日の日付 yyyy/MM/dd}
+/// -----
+///
+/// このファイルは `api_config.dart` のテンプレートです。
+/// このファイルをコピーして `api_config.dart` という名前に変更し、
+/// 実際のAPIトークンを `actualApiToken` に設定してください。
+/// `api_config.dart` はGitの管理対象外（.gitignoreに記載）です。
+class ApiConfig {
+  /// 実際のAPI認証トークン (ここに実際のトークンを設定してください)
+  static const String actualApiToken = 'PASTE_YOUR_API_TOKEN_HERE';
+}

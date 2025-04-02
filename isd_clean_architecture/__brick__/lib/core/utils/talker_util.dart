@@ -1,27 +1,31 @@
 import 'package:talker_flutter/talker_flutter.dart';
 
+import '../constants/config.dart';
+
 /// -----------------------------------------------
 /// [概要]   :アプリケーション全体のログ管理を行うユーティリティ
 /// [作成者] :TCC S.Tate
-/// [作成日] :2024/12/03
+/// [作成日] :2025/03/25
 /// -----------------------------------------------
 
-/// -----------------------------------------------
 /// アプリケーション全体で使用するTalkerインスタンス
-///
-/// 以下の設定で初期化:
-/// * タイムスタンプ形式: 年月日と時刻
-/// * 最大履歴保持数: 200件
-///
-/// このインスタンスを使用して以下の操作が可能:
-/// * ログの記録
-/// * エラーの記録
-/// * デバッグ情報の出力
-/// * ログ履歴の管理
-/// -----------------------------------------------
-final talker = TalkerFlutter.init(
+final Talker talker = TalkerFlutter.init(
   settings: TalkerSettings(
     timeFormat: TimeFormat.yearMonthDayAndTime,
-    maxHistoryItems: 200,
+    maxHistoryItems: Config.talkerConfig.maxHistoryItems ?? 1000,
   ),
 );
+
+/// Talkerのログ設定を管理するクラス
+class TalkerConfig {
+  /// Riverpodのログを有効にするかどうか
+  final bool enableRiverpodLogs;
+
+  /// 最大履歴数
+  final int? maxHistoryItems;
+
+  /// Talkerの設定
+  /// * [enableRiverpodLogs] : Riverpodのログを有効にするかどうか
+  /// * [maxHistoryItems] : 最大履歴数 (default: 1000)
+  const TalkerConfig({required this.enableRiverpodLogs, this.maxHistoryItems});
+}

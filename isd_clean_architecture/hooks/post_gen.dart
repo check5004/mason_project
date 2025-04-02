@@ -58,6 +58,7 @@ void run(HookContext context) {
     'shimmer',
     // 状態管理とアーキテクチャ
     'hooks_riverpod',
+    'flutter_hooks',
     'riverpod_annotation',
     'go_router',
     'freezed_annotation',
@@ -82,8 +83,9 @@ void run(HookContext context) {
     'share_plus',
     'native_device_orientation',
     // 開発・デバッグ支援
-    'talker_dio_logger',
     'talker_flutter',
+    'talker_dio_logger',
+    'talker_riverpod_logger',
     'flutter_launcher_icons',
     'flutter_native_splash',
     'upgrader',
@@ -162,10 +164,8 @@ void run(HookContext context) {
 
   // ビルドランナーを実行してコード生成を行います
   context.logger.info("🔄 build_runner を実行中...");
-  final buildRunner = Process.runSync(
-    'fvm',
-    ['flutter', 'pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs']
-  );
+  final buildRunner =
+      Process.runSync('fvm', ['flutter', 'pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs']);
   context.logger.info(buildRunner.stdout.toString());
 
   bool buildRunnerSuccess = true;
@@ -174,14 +174,10 @@ void run(HookContext context) {
   if (buildRunner.stderr.toString().isNotEmpty) {
     final stderrOutput = buildRunner.stderr.toString();
     // 無視する警告のリスト
-    final ignoredWarnings = [
-      'Specified build.yaml as input but the file does not exists',
-      'FlutterGen'
-    ];
+    final ignoredWarnings = ['Specified build.yaml as input but the file does not exists', 'FlutterGen'];
 
     // 無視する警告が含まれているかチェック
-    bool containsIgnoredWarning = ignoredWarnings.any((warning) =>
-      stderrOutput.contains(warning));
+    bool containsIgnoredWarning = ignoredWarnings.any((warning) => stderrOutput.contains(warning));
 
     if (stderrOutput.contains('Warning') || containsIgnoredWarning) {
       context.logger.info("ℹ️ build_runner からの情報: ${stderrOutput}");

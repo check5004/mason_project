@@ -2,6 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'app_color_scheme.dart';
+
 /// [AppTheme] は、アプリのライトテーマとダークテーマを定義します。
 ///
 /// FlexColorScheme パッケージ v8 用のテーマ設定です。
@@ -76,6 +78,17 @@ abstract final class AppTheme {
     // Direct ThemeData properties.
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     cupertinoOverrideTheme: const CupertinoThemeData(applyThemeToAll: true),
+    extensions: <ThemeExtension<dynamic>>[
+      // カスタムカラースキーム
+      AppColorScheme(
+        inputRequired: Colors.red[700]!,
+        inputSingleRequired: Colors.orange[700]!,
+        inputNormal: Colors.lightBlue[700]!,
+        salesRowBlue: Colors.lightBlue[200]!,
+        sortDesc: Colors.blue[400]!,
+        sortAsc: Colors.red[400]!,
+      ),
+    ],
   );
 
   // The FlexColorScheme defined dark mode ThemeData.
@@ -134,5 +147,16 @@ abstract final class AppTheme {
     // Direct ThemeData properties.
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     cupertinoOverrideTheme: const CupertinoThemeData(applyThemeToAll: true),
+    extensions: <ThemeExtension<dynamic>>[
+      // カスタムカラースキーム
+      AppColorScheme(
+        inputRequired: Colors.red[300]!,
+        inputSingleRequired: Colors.orange[300]!,
+        inputNormal: Colors.lightBlue[300]!,
+        salesRowBlue: Colors.lightBlue[800]!,
+        sortDesc: Colors.blue[300]!,
+        sortAsc: Colors.red[200]!,
+      ),
+    ],
   );
 }
