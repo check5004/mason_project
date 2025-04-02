@@ -192,6 +192,23 @@ void run(HookContext context) {
     }
   }
 
+  // APIトークン設定ファイルの生成
+  context.logger.info("🔄 APIトークン設定ファイルを生成中...");
+  try {
+    final sourceFile = File('lib/core/constants/api_config.dart.example');
+    final targetFile = File('lib/core/constants/api_config.dart');
+
+    if (sourceFile.existsSync()) {
+      sourceFile.copySync(targetFile.path);
+      context.logger.info("✅ api_config.dartを生成しました");
+    } else {
+      context.logger.err("❌ api_config.dart.exampleが見つかりません");
+    }
+  } catch (e) {
+    context.logger.err("❌ api_config.dartの生成中にエラーが発生しました: $e");
+  }
+  context.logger.info("----------------------------\n");
+
   // インストール結果の総括
   final totalPackages = pluginsToInstall.length + devDependencies.length;
   context.logger.info("\n📊 プラグインインストール結果");
