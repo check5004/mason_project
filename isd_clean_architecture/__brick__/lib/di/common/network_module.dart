@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:isd_template_1/core/network/custom_talker_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 import '../../core/constants/config.dart';
 import '../../core/network/auth_interceptor.dart';
+import '../../core/network/custom_talker_logger.dart';
 import '../../core/utils/talker_util.dart';
 
 part 'network_module.g.dart';
