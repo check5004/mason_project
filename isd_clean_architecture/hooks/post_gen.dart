@@ -200,14 +200,13 @@ void run(HookContext context) {
 
     if (sourceFile.existsSync()) {
       sourceFile.copySync(targetFile.path);
-      context.logger.info("✅ api_config.dartを生成しました");
+      context.logger.info("✅ api_config.dartを生成しました\n　 このファイルでsupabaseのAPIトークンを設定してください");
     } else {
       context.logger.err("❌ api_config.dart.exampleが見つかりません");
     }
   } catch (e) {
     context.logger.err("❌ api_config.dartの生成中にエラーが発生しました: $e");
   }
-  context.logger.info("----------------------------\n");
 
   // インストール結果の総括
   final totalPackages = pluginsToInstall.length + devDependencies.length;
@@ -240,7 +239,7 @@ void run(HookContext context) {
   } else {
     context.logger.err(buildRunnerMessage);
   }
-  context.logger.info("----------------------------\n\n");
+  context.logger.info("----------------------------\n");
 
   // 最終的な成功メッセージ
   if (failureCount > 0 || !buildRunnerSuccess) {
