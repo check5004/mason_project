@@ -18,7 +18,58 @@ void run(HookContext context) {
 
   context.logger.info("🔄 設定されたFlutterバージョン: $flutterVersion");
   context.logger.info("🔄 サポートするプラットフォーム: $platforms");
-  context.logger.info("🔄 プロジェクト名: $projectName");
+  context.logger.info("🔄 プロジェクト名: $projectName\n");
+
+  // fvmのチェック
+  final fvmCheck = Process.runSync('fvm', ['--version']);
+  if (fvmCheck.exitCode != 0) {
+    context.logger.err('fvmが見つかりません');
+    throw Exception('fvmが見つかりません。セットアップを中止します。');
+  } else {
+    context.logger.info('fvmが見つかりました: ${fvmCheck.stdout}');
+  }
+
+  // FVMを使用してFlutterバージョンを設定します。
+  final fvmInstall = Process.runSync('fvm', ['install', flutterVersion]);
+  context.logger.info(fvmInstall.stdout.toString());
+  if (fvmInstall.stderr.toString().isNotEmpty) {
+    context.logger.err(fvmInstall.stderr.toString());
+  }
+  final fvmSetup = Process.runSync('fvm', ['use', flutterVersion]);
+  context.logger.info(fvmSetup.stdout.toString());
+  if (fvmSetup.stderr.toString().isNotEmpty) {
+    context.logger.err(fvmSetup.stderr.toString());
+  }
+
+  // 必要なコマンドの存在を確認します
+  final commands = [
+    ['fvm', '--version'],
+    ['fvm', 'flutter', '--version'],
+    ['dart', '--version'],
+    ['mason', '--version'],
+  ];
+
+  // 各コマンドの存在チェック
+  for (final command in commands) {
+    try {
+      // バージョンコマンドを実行してコマンドが機能するか確認
+      final result = Process.runSync(
+        command[0],
+        command.sublist(1),
+      );
+
+      if (result.exitCode != 0) {
+        context.logger.err('${command.join(" ")}コマンドが正常に動作しません');
+        throw Exception('必要なコマンド ${command.join(" ")} が正常に動作しません。セットアップを中止します。');
+      }
+
+      context.logger.info('${command.join(" ")}コマンドの動作を確認しました: ${result.stdout}');
+    } catch (e) {
+      context.logger.err('${command.join(" ")}コマンドの確認中にエラーが発生しました:');
+      context.logger.err(e.toString());
+      throw Exception('必要なコマンド ${command.join(" ")} が正常に動作しません。セットアップを中止します。');
+    }
+  }
 
   // インストール結果の追跡用変数
   int successCount = 0;
@@ -26,13 +77,6 @@ void run(HookContext context) {
   int warningCount = 0;
   final List<String> failedPackages = [];
   final List<String> warningPackages = [];
-
-  // FVMを使用してFlutterバージョンを設定します。
-  final fvmSetup = Process.runSync('fvm', ['use', flutterVersion]);
-  context.logger.info(fvmSetup.stdout.toString());
-  if (fvmSetup.stderr.toString().isNotEmpty) {
-    context.logger.err(fvmSetup.stderr.toString());
-  }
 
   // 現在のディレクトリにFlutterプロジェクトを作成します。
   final flutterCreate = Process.runSync(
