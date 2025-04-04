@@ -42,27 +42,32 @@ void run(HookContext context) {
   }
 
   // 必要なコマンドの存在を確認します
-  final commands = ['fvm', 'fvm flutter', 'dart', 'mason'];
+  final commands = [
+    ['fvm', '--version'],
+    ['fvm', 'flutter', '--version'],
+    ['dart', '--version'],
+    ['mason', '--version'],
+  ];
 
   // 各コマンドの存在チェック
   for (final command in commands) {
     try {
       // バージョンコマンドを実行してコマンドが機能するか確認
       final result = Process.runSync(
-        command,
-        ['--version'],
+        command[0],
+        command.sublist(1),
       );
 
       if (result.exitCode != 0) {
-        context.logger.err('$commandコマンドが正常に動作しません');
-        throw Exception('必要なコマンド $command が正常に動作しません。セットアップを中止します。');
+        context.logger.err('${command.join(" ")}コマンドが正常に動作しません');
+        throw Exception('必要なコマンド ${command.join(" ")} が正常に動作しません。セットアップを中止します。');
       }
 
-      context.logger.info('$commandコマンドの動作を確認しました: ${result.stdout}');
+      context.logger.info('${command.join(" ")}コマンドの動作を確認しました: ${result.stdout}');
     } catch (e) {
-      context.logger.err('$commandコマンドの確認中にエラーが発生しました:');
+      context.logger.err('${command.join(" ")}コマンドの確認中にエラーが発生しました:');
       context.logger.err(e.toString());
-      throw Exception('必要なコマンド $command が正常に動作しません。セットアップを中止します。');
+      throw Exception('必要なコマンド ${command.join(" ")} が正常に動作しません。セットアップを中止します。');
     }
   }
 
